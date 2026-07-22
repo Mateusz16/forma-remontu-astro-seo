@@ -1,0 +1,22 @@
+---
+type Item = { name: string; path?: string };
+interface Props { items: Item[] }
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumbs container" aria-label="Okruszki">
+  <ol>
+    {items.map((item, index) => (
+      <li>
+        {item.path && index !== items.length - 1 ? <a href={item.path}>{item.name}</a> : <span aria-current={index === items.length - 1 ? "page" : undefined}>{item.name}</span>}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs { padding-top: var(--space-6); }
+  ol { margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.55rem; list-style: none; color: var(--muted); font-size: var(--text-xs); }
+  li:not(:last-child)::after { content: "/"; margin-left: 0.55rem; color: var(--sage-400); }
+  a:hover { color: var(--forest-700); }
+</style>

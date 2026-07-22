@@ -1,0 +1,92 @@
+---
+import { company, services } from "@/data/site";
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-intro">
+      <p class="footer-mark">FORMA REMONTU<span>.</span></p>
+      <p>Koncepcyjny szablon strony dla lokalnej firmy remontowej i serwisowej. Marka oraz wszystkie dane są fikcyjne.</p>
+      <a class="footer-phone" href="/kontakt/">Kontakt demonstracyjny</a>
+    </div>
+
+    <div>
+      <p class="footer-heading">Usługi</p>
+      {services.filter((service) => service.featured).map((service) => (
+        <a href={`/oferta/${service.slug}/`}>{service.navLabel}</a>
+      ))}
+    </div>
+
+    <div>
+      <p class="footer-heading">Na skróty</p>
+      <a href="/o-nas/">O nas</a>
+      <a href="/galeria/">Realizacje</a>
+      <a href="/kontakt/">Kontakt</a>
+      <a href="/sitemap.xml">Mapa strony</a>
+    </div>
+
+    <div>
+      <p class="footer-heading">Kontakt</p>
+      <p>{company.street}<br />{company.postalCode} {company.city}</p>
+      <span>{company.email}</span>
+      <p>{company.hoursDisplay}</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© {new Date().getFullYear()} Forma Remontu — koncept</span>
+    <span>Portfolio demo · brak powiązania z prawdziwym wykonawcą.</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-top: var(--space-16);
+    color: var(--cream);
+    background: var(--forest-950);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.55fr repeat(3, 1fr);
+    gap: var(--space-10);
+  }
+
+  .footer-mark {
+    margin: 0 0 var(--space-4);
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+
+  .footer-mark span { color: var(--lime); }
+  .footer-intro > p:not(.footer-mark) { max-width: 29rem; color: var(--sage-200); }
+  .footer-phone { display: inline-block; margin-top: var(--space-5); color: white; font-size: var(--text-xl); font-weight: 800; }
+  .footer-heading { margin: 0 0 var(--space-4); color: var(--lime); font-size: var(--text-xs); font-weight: 850; letter-spacing: 0.1em; text-transform: uppercase; }
+  .footer-grid > div:not(.footer-intro) > a,
+  .footer-grid > div:not(.footer-intro) > p:not(.footer-heading),
+  .footer-grid > div:not(.footer-intro) > span { display: block; margin: 0 0 0.65rem; color: var(--sage-200); font-size: var(--text-sm); }
+  .footer-grid a:hover { color: white; }
+
+  .footer-bottom {
+    margin-top: var(--space-12);
+    padding-block: var(--space-5);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-5);
+    color: var(--sage-300);
+    border-top: 1px solid rgb(255 255 255 / 0.14);
+    font-size: var(--text-xs);
+  }
+
+  @media (max-width: 820px) {
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-intro { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 520px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-intro { grid-column: auto; }
+    .footer-bottom { flex-direction: column; }
+  }
+</style>

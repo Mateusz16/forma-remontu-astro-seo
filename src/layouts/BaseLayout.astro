@@ -1,0 +1,88 @@
+---
+import Footer from "@/components/layout/Footer.astro";
+import Header from "@/components/layout/Header.astro";
+import { company } from "@/data/site";
+import "@/styles/global.css";
+
+type Breadcrumb = { name: string; path: string };
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  breadcrumbs?: Breadcrumb[];
+  schema?: Record<string, unknown>;
+  noindex?: boolean;
+}
+
+const { title, description, path, breadcrumbs = [], schema, noindex = true } = Astro.props;
+const canonical = new URL(path, company.domain).href;
+const demoBrandId = `${company.domain}/#demo-brand`;
+
+const graph: Record<string, unknown>[] = [
+  {
+    "@type": "Organization",
+    "@id": demoBrandId,
+    name: company.name,
+    legalName: company.legalName,
+    url: company.domain,
+    description: "Fikcyjna marka przygotowana wyłącznie jako projekt demonstracyjny.",
+  },
+  {
+    "@type": "WebPage",
+    "@id": `${canonical}#webpage`,
+    url: canonical,
+    name: title,
+    description,
+    inLanguage: "pl-PL",
+    about: { "@id": demoBrandId },
+  },
+];
+
+if (breadcrumbs.length > 0) {
+  graph.push({
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: new URL(item.path, company.domain).href,
+    })),
+  });
+}
+
+if (schema) graph.push(schema);
+
+const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c");
+---
+
+<!doctype html>
+<html lang={company.language}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large"} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:locale" content={company.locale} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={company.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#173d25" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline type="application/ld+json" set:html={jsonLd}></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Przejdź do treści</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

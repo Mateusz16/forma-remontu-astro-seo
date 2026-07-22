@@ -1,0 +1,91 @@
+---
+import Breadcrumbs from "@/components/ui/Breadcrumbs.astro";
+import { company, services, siteDraftNotice } from "@/data/site";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const title = "Kontakt demonstracyjny | Forma Remontu";
+const description = "Przykładowy widok kontaktu w koncepcyjnym projekcie strony dla fikcyjnej firmy remontowej.";
+const breadcrumbs = [{ name: "Strona główna", path: "/" }, { name: "Kontakt", path: "/kontakt/" }];
+---
+
+<BaseLayout title={title} description={description} path="/kontakt/" breadcrumbs={breadcrumbs}>
+  <Breadcrumbs items={breadcrumbs} />
+  <section class="contact-head section-pad--compact">
+    <div class="container contact-head__grid">
+      <div>
+        <p class="eyebrow">Kontakt</p>
+        <h1>Opisz zakres. Ustalimy kolejny krok.</h1>
+        <p class="lede">Ten ekran pokazuje docelowy układ kontaktu. Dane są celowo nieaktywne, ponieważ strona prezentuje fikcyjną markę.</p>
+      </div>
+      <div class="contact-head__card">
+        <span>Wersja demo</span>
+        <strong>{company.phoneDisplay}</strong>
+        <p>{siteDraftNotice}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-details section-pad surface-sage">
+    <div class="container contact-details__grid">
+      <div class="contact-details__info">
+        <article><span>01</span><div><h2>Telefon</h2><p>{company.phoneDisplay}</p><p>Numer przykładowy — połączenie jest wyłączone.</p></div></article>
+        <article><span>02</span><div><h2>E-mail</h2><p>{company.email}</p><p>Adres w zarezerwowanej domenie demonstracyjnej.</p></div></article>
+        <article><span>03</span><div><h2>Adres</h2><p>{company.street}<br />{company.postalCode} {company.city}</p><p>Lokalizacja służy wyłącznie prezentacji układu.</p></div></article>
+      </div>
+
+      <aside class="contact-details__brief" aria-labelledby="brief-heading">
+        <p class="eyebrow">Przygotuj trzy informacje</p>
+        <h2 id="brief-heading">Dzięki temu szybciej ocenimy temat.</h2>
+        <ol>
+          <li><span>1</span><p><strong>Rodzaj usługi</strong><br />np. serwis okien albo mycie elewacji</p></li>
+          <li><span>2</span><p><strong>Lokalizacja</strong><br />miejscowość i typ obiektu</p></li>
+          <li><span>3</span><p><strong>Krótki opis</strong><br />co się dzieje i jaki efekt jest potrzebny</p></li>
+        </ol>
+        <a class="button button--lime" href="#contact-services-heading">Wybierz przykładową usługę</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="contact-services section-pad" aria-labelledby="contact-services-heading">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">Wybierz temat</p><h2 id="contact-services-heading">Najczęściej wybierane zakresy.</h2></div>
+        <p>Każda usługa ma własną stronę z informacjami, które warto ustalić przed realizacją.</p>
+      </div>
+      <div class="contact-services__list">
+        {services.filter((service) => service.featured).map((service, index) => (
+          <a href={`/oferta/${service.slug}/`}><span>{String(index + 1).padStart(2, "0")}</span><strong>{service.navLabel}</strong><b aria-hidden="true">↗</b></a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-head__grid { display: grid; grid-template-columns: 1.1fr 0.7fr; gap: var(--space-10); align-items: end; }
+  h1 { max-width: 11ch; margin: 0 0 var(--space-6); font-size: var(--text-4xl); line-height: 0.95; }
+  .contact-head__card { padding: var(--space-7); color: white; background: var(--forest-950); }
+  .contact-head__card span { color: var(--lime); font-size: var(--text-xs); font-weight: 850; letter-spacing: 0.1em; text-transform: uppercase; }
+  .contact-head__card strong { display: block; margin: var(--space-5) 0; font-size: var(--text-2xl); font-weight: 800; letter-spacing: -0.04em; }
+  .contact-head__card p { margin: 0; color: var(--sage-200); }
+  .contact-details__grid { display: grid; grid-template-columns: 1fr 0.8fr; gap: var(--space-12); }
+  .contact-details__info { border-top: 1px solid var(--line-strong); }
+  .contact-details__info article { padding: var(--space-6) 0; display: grid; grid-template-columns: 4rem 1fr; border-bottom: 1px solid var(--line-strong); }
+  .contact-details__info article > span { color: var(--clay); font-size: var(--text-xs); font-weight: 850; }
+  .contact-details__info h2 { margin: 0 0 var(--space-2); font-size: var(--text-xl); }
+  .contact-details__info a { font-size: var(--text-lg); font-weight: 800; }
+  .contact-details__info p { margin: var(--space-2) 0 0; color: var(--muted); }
+  .contact-details__brief { padding: var(--space-7); color: white; background: var(--forest-800); }
+  .contact-details__brief h2 { max-width: 13ch; margin: 0; font-size: var(--text-2xl); line-height: 1.05; }
+  .contact-details__brief ol { margin: var(--space-7) 0; padding: 0; list-style: none; }
+  .contact-details__brief li { padding: var(--space-4) 0; display: grid; grid-template-columns: 2.5rem 1fr; border-bottom: 1px solid rgb(255 255 255 / 0.15); }
+  .contact-details__brief li > span { color: var(--lime); font-weight: 850; }
+  .contact-details__brief li p { margin: 0; color: var(--sage-100); }
+  .contact-details__brief strong { color: white; }
+  .contact-services__list { border-top: 1px solid var(--line-strong); }
+  .contact-services__list a { padding: var(--space-5) 0; display: grid; grid-template-columns: 4rem 1fr auto; align-items: center; border-bottom: 1px solid var(--line-strong); }
+  .contact-services__list a > span { color: var(--clay); font-size: var(--text-xs); font-weight: 850; }
+  .contact-services__list a > strong { font-size: var(--text-xl); }
+  .contact-services__list a > b { color: var(--clay); font-size: var(--text-xl); }
+  @media (max-width: 800px) { .contact-head__grid, .contact-details__grid { grid-template-columns: 1fr; } }
+</style>

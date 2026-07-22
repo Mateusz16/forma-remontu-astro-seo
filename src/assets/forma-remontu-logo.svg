@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 92" role="img" aria-labelledby="title desc">
+  <title id="title">Forma Remontu</title>
+  <desc id="desc">Fikcyjny znak słowny przygotowany dla projektu demonstracyjnego</desc>
+  <g fill="none" stroke="#173d25" stroke-width="7" stroke-linecap="square">
+    <path d="M9 74V18h56v56H34V43h31"/>
+    <path d="M82 74V39l20-20 20 20v35"/>
+  </g>
+  <circle cx="102" cy="55" r="7" fill="#c7f34f"/>
+  <g fill="#173d25" font-family="Arial, Helvetica, sans-serif" font-weight="800">
+    <text x="145" y="42" font-size="28" letter-spacing="-1">FORMA</text>
+    <text x="145" y="70" font-size="24" letter-spacing="1">REMONTU</text>
+  </g>
+</svg>

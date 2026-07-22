@@ -1,0 +1,20 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Nie znaleziono strony | Forma Remontu" description="Ta strona nie istnieje lub została przeniesiona." path="/404/" noindex>
+  <section class="not-found section-pad">
+    <div class="container not-found__grid">
+      <span>404</span>
+      <div><p class="eyebrow">Nie znaleziono strony</p><h1>Ten adres nie prowadzi już do żadnej treści.</h1><p class="lede">Wróć na stronę główną albo przejdź do kontaktu, jeśli szukasz konkretnej usługi.</p><div><a class="button" href="/">Strona główna</a><a class="button button--outline" href="/kontakt/">Kontakt</a></div></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found__grid { min-height: 60vh; display: grid; grid-template-columns: 0.6fr 1.4fr; align-items: center; gap: var(--space-10); }
+  .not-found__grid > span { color: var(--lime); font-size: clamp(7rem, 20vw, 18rem); font-weight: 900; letter-spacing: -0.08em; line-height: 0.8; }
+  h1 { max-width: 12ch; margin: 0 0 var(--space-6); font-size: var(--text-4xl); line-height: 0.95; }
+  .not-found__grid div div { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-7); }
+  @media (max-width: 700px) { .not-found__grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,32 @@
+---
+interface Props { heading?: string; text?: string }
+const {
+  heading = "Opowiedz, czego potrzebujesz.",
+  text = "Krótka rozmowa wystarczy, żeby ustalić rodzaj usługi i kolejny krok.",
+} = Astro.props;
+---
+
+<section class="contact-band section-pad" aria-labelledby="contact-band-heading">
+  <div class="container contact-band__grid">
+    <div>
+      <p class="eyebrow eyebrow--light">Forma Remontu · projekt demo</p>
+      <h2 id="contact-band-heading">{heading}</h2>
+    </div>
+    <div>
+      <p>{text}</p>
+      <div class="contact-band__actions">
+        <a class="button button--lime" href="/kontakt/">Zobacz kontakt demo</a>
+        <a class="text-link text-link--light" href="/galeria/">Zobacz wizualizacje <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-band { color: var(--cream); background: var(--forest-800); }
+  .contact-band__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--space-12); align-items: end; }
+  h2 { max-width: 12ch; margin: 0; color: white; font-size: var(--text-4xl); line-height: 0.95; }
+  .contact-band__grid > div:last-child > p { max-width: 36rem; margin: 0 0 var(--space-7); color: var(--sage-100); font-size: var(--text-lg); }
+  .contact-band__actions { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: center; }
+  @media (max-width: 760px) { .contact-band__grid { grid-template-columns: 1fr; gap: var(--space-7); } h2 { max-width: 16ch; } }
+</style>
